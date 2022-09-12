@@ -1,6 +1,6 @@
 ## H2GCN_PyG
 
-Reimplementation of NeurIPS paper "[Beyond homophily in graph neural networks: Current limitations and effective designs](https://proceedings.neurips.cc/paper/2020/hash/58ae23d878a47004366189884c2f8440-Abstract.html)" based on PyTorch and PyTorch Geometric (PyG).
+Reimplementation of NeurIPS 2020 paper "[Beyond homophily in graph neural networks: Current limitations and effective designs](https://proceedings.neurips.cc/paper/2020/hash/58ae23d878a47004366189884c2f8440-Abstract.html)" based on PyTorch and PyTorch Geometric (PyG).
 
 
 
