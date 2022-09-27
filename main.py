@@ -10,7 +10,7 @@ from model import H2GNN, H2GNN_Variant
 
 
 if __name__ == '__main__':
-    dataset_name = 'wisconsin'
+    dataset_name = 'chameleon'
     # dataset_name = 'Cora'
 
     heter_dataset = ['chameleon', 'cornell', 'film', 'squirrel', 'texas', 'wisconsin']
@@ -47,10 +47,10 @@ if __name__ == '__main__':
     utils.set_seed(15)
 
     if re_generate_train_val_test:
-        idx_train, idx_val, idx_test = utils.split_nodes(data.y, 0.8, 0.1, 0.1, 15, split_by_label_flag)
+        idx_train, idx_val, idx_test = utils.split_nodes(data.y, 0.48, 0.32, 0.20, 15, split_by_label_flag)
     else:
         if dataset_name in heter_dataset:
-            idx_train, idx_val, idx_test = utils.split_nodes(data.y, 0.8, 0.1, 0.1, 15, split_by_label_flag)
+            idx_train, idx_val, idx_test = utils.split_nodes(data.y, 0.48, 0.32, 0.20, 15, split_by_label_flag)
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
@@ -66,8 +66,9 @@ if __name__ == '__main__':
 
 
 
-    # net = H2GNN(data, num_features, num_hidden, num_classes, dropout, layer_num=2)
-    net = H2GNN_Variant(data, num_features, num_hidden, num_classes, dropout, layer_num=2)
+    net = H2GNN(data, num_features, num_hidden, num_classes, dropout, layer_num=2, device=device)
+    # net = H2GNN_Variant(data, num_features, num_hidden, num_classes, dropout, layer_num=2)
+    net = net.to(device)
 
     optimizer = torch.optim.Adam(net.parameters(), lr=lr, weight_decay=weight_decay)
 

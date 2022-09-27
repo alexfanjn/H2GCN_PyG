@@ -6,7 +6,7 @@ from utils import remove_edges, gcn_norm, edge_index_to_sparse_tensor_adj
 
 
 class H2GNN(torch.nn.Module):
-    def __init__(self, data, num_features, num_hidden, num_classes, dropout, layer_num=2):
+    def __init__(self, data, num_features, num_hidden, num_classes, dropout, layer_num=2, device='cpu'):
         super(H2GNN, self).__init__()
 
         self.linear1 = torch.nn.Linear(num_features, num_hidden[0])
@@ -16,6 +16,7 @@ class H2GNN(torch.nn.Module):
         self.dropout = dropout
         self.layer_num = layer_num
         self.data = data
+        self.device = device
 
 
         temp_loop_edge_index, _ = gutils.add_self_loops(self.data.edge_index)
@@ -39,9 +40,9 @@ class H2GNN(torch.nn.Module):
         for i in range(self.layer_num-1):
             self.k_hop_edge_index[i], _ = gutils.remove_self_loops(self.k_hop_edge_index[i])
             if i == 0:
-                self.k_hop_edge_index[i] = remove_edges(self.k_hop_edge_index[i], self.data.edge_index)
+                self.k_hop_edge_index[i] = remove_edges(self.k_hop_edge_index[i], self.data.edge_index).to(self.device)
             else:
-                self.k_hop_edge_index[i] = remove_edges(self.k_hop_edge_index[i], self.k_hop_edge_index[i-1])
+                self.k_hop_edge_index[i] = remove_edges(self.k_hop_edge_index[i], self.k_hop_edge_index[i-1]).to(self.device)
 
         self.norm_adjs = []
         self.norm_adjs.append(gcn_norm(self.data.edge_index, self.data.y.shape[0]))
@@ -101,9 +102,9 @@ class H2GNN_Variant(torch.nn.Module):
         for i in range(self.layer_num-1):
             self.k_hop_edge_index[i], _ = gutils.remove_self_loops(self.k_hop_edge_index[i])
             if i == 0:
-                self.k_hop_edge_index[i] = remove_edges(self.k_hop_edge_index[i], self.data.edge_index)
+                self.k_hop_edge_index[i] = remove_edges(self.k_hop_edge_index[i], self.data.edge_index).to(self.device)
             else:
-                self.k_hop_edge_index[i] = remove_edges(self.k_hop_edge_index[i], self.k_hop_edge_index[i-1])
+                self.k_hop_edge_index[i] = remove_edges(self.k_hop_edge_index[i], self.k_hop_edge_index[i-1]).to(self.device)
 
 
     def forward(self):
