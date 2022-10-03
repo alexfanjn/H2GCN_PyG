@@ -66,7 +66,7 @@ class H2GNN(torch.nn.Module):
 
         final_h = torch.cat([final_h, R1], dim=1)
         final_h = torch.cat([final_h, R2], dim=1)
-        final_h = F.dropout(final_h)
+        final_h = F.dropout(final_h, p=self.dropout, training=self.training)
         final_h = self.linear2(final_h)
 
         return F.log_softmax(final_h, 1)
@@ -126,6 +126,6 @@ class H2GNN_Variant(torch.nn.Module):
         final_h = torch.cat([final_h, R1], dim=1)
         final_h = torch.cat([final_h, R2], dim=1)
         final_h = F.dropout(final_h)
-        final_h = self.linear2(final_h)
+        final_h = self.linear2(final_h, p=self.dropout, training=self.training)
         return F.log_softmax(final_h, 1)
 
