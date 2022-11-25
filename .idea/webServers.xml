@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="4f30a694-dbed-4466-b4e7-997a80ceaf54" name="server">
+        <fileTransfer rootFolder="/home/jyfang/remote_project" accessType="SFTP" host="144.214.130.38" port="22191" sshConfigId="75d0d07e-f966-4cf4-9b47-4791b4af7a51" sshConfig="jyfang@144.214.130.38:22191 password">
+          <advancedOptions>
+            <advancedOptions controlEncoding="UTF-8" dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

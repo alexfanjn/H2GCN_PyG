@@ -45,8 +45,8 @@ class H2GNN(torch.nn.Module):
                 self.k_hop_edge_index[i] = remove_edges(self.k_hop_edge_index[i], self.k_hop_edge_index[i-1]).to(self.device)
 
         self.norm_adjs = []
-        self.norm_adjs.append(gcn_norm(self.data.edge_index, self.data.y.shape[0]))
-        self.norm_adjs.append(gcn_norm(self.k_hop_edge_index[0], self.data.y.shape[0]))
+        self.norm_adjs.append(gcn_norm(self.data.edge_index, self.data.y.shape[0], self.device))
+        self.norm_adjs.append(gcn_norm(self.k_hop_edge_index[0], self.data.y.shape[0], self.device))
 
 
     def forward(self):

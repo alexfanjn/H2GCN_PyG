@@ -47,12 +47,13 @@ if __name__ == '__main__':
     utils.set_seed(15)
 
     if re_generate_train_val_test:
-        idx_train, idx_val, idx_test = utils.split_nodes(data.y, 0.48, 0.32, 0.20, 15, split_by_label_flag)
+        idx_train, idx_val, idx_test = utils.split_nodes(data.y, 0.25, 0.25, 0.50, 15, split_by_label_flag)
     else:
         if dataset_name in heter_dataset:
-            idx_train, idx_val, idx_test = utils.split_nodes(data.y, 0.48, 0.32, 0.20, 15, split_by_label_flag)
+            idx_train, idx_val, idx_test = utils.split_nodes(data.y, 0.25, 0.25, 0.50, 15, split_by_label_flag)
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+
 
 
     data = data.to(device)
